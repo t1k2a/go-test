@@ -1,25 +1,27 @@
 package main
 
-import(
-	"github.com/sclevine/agouti"
+import (
+	// "Keys"
 	"log"
+
+	"github.com/sclevine/agouti"
 )
 
 func main() {
 	driver := agouti.ChromeDriver()
-	if err := driver.Start(); err != nil {
-		log.Fatalf("Faild to start river:%v", err)
-	}
-	defer driver.Stop()
-
-	page, err := driver.NewPage(agouti.Browser("chrome"))
+	err := driver.Start()
 	if err != nil {
-		log.Fatalf("Failed to navigate:%v", err)
+		log.Fatal(err)
 	}
-
-	if err := page.Navigate("https://achieve-t1k2a.c9users.io/blogs"); err != nil {
-		log.Fatalf("Failed to navigate:%v", err)
+	page, err := driver.NewPage(agouti.Browser("chrome"))
+	err = page.Navigate("https://qiita.com/")
+	if err != nil {
+		log.Fatal(err)
 	}
-	page.Screenshot("/tmp/chetome_qiita.jpg")
+	searchform := page.FindByClass("st-Header_searchInput")
+	err = searchform.Fill("社会人１年目に何をしたかまとめてみた")
+	if err != nil {
+		log.Fatal(err)
 	}
-
+	// btn := page.send_keys(Keys.ENTER)
+}
