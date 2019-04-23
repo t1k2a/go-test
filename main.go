@@ -14,12 +14,22 @@ func main() {
 
 	page, err := driver.NewPage(agouti.Browser("chrome"))
 	if err != nil {
-		log.Fatalf("Failed to navigate:%v", err)
+		log.Println(err)
 	}
 
-	if err := page.Navigate("https://achieve-t1k2a.c9users.io/blogs"); err != nil {
-		log.Fatalf("Failed to navigate:%v", err)
-	}
-	page.Screenshot("/tmp/chetome_qiita.jpg")
+	err := page.Navigate("https://achieve-t1k2a.c9users.io/blogs");
+	if err != nil {
+		log.Println(err)
 	}
 
+	err := page.FindByLink("Open the App").Click()
+	if err != nil {
+		log.Println(err)
+	}
+
+	err : = page.Screenshot("/tmp/chetome_qiita.jpg")
+	if err != nil {
+		log.Println(err)
+	}
+
+}
