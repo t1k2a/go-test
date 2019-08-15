@@ -7,13 +7,13 @@ import (
 )
 
 func main() {
-	driver := agouti.ChromeDriver()
+	driver := agouti.ChromeDriver(agouti.Browser("chrome"))
 	err := driver.Start()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	page, err := driver.NewPage(agouti.Browser("chrome"))
+	page, err := driver.NewPage()
 	err = page.Navigate("https://qiita.com/login?redirect_to=%2F")
 	if err != nil {
 		log.Fatal(err)
